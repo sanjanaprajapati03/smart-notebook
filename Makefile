@@ -8,10 +8,10 @@ db:
 	docker compose up -d
 
 api:
-	$(UV) run uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
+	uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 
 ui:
-	API_BASE_URL=$(API_BASE_URL) $(UV) run streamlit run ui/app.py
+	API_BASE_URL=$(API_BASE_URL) streamlit run ui/app.py
 
 dev: db
 	@bash -c "$(UV) run uvicorn src.main:app --reload --host 0.0.0.0 --port 8000 & API_BASE_URL=$(API_BASE_URL) $(UV) run streamlit run ui/app.py & wait"
